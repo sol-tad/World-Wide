@@ -4,7 +4,7 @@ import Product from "./pages/Product";
 import HomePage from "./pages/HomePage";
 import Pricing from "./pages/Pricing";
 import PageNotFound from "./pages/PageNotFound";
-import AppLayout from "./components/AppLayout";
+import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 
 function App() {
