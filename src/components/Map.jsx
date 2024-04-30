@@ -22,12 +22,25 @@ function Map() {
   const mapLat = searchParam.get("lat");
   const mapLng = searchParam.get("lng");
 
+  const {
+    isLoading: isLoadingPosition,
+    position: geolocationPosition,
+    getPosition,
+  } = useGeolocation();
+
   useEffect(
     function () {
       if (mapLat && mapLng) setMapPosition([mapLat, mapLng]);
     },
     [mapLat, mapLng]
   );
+   useEffect(
+     function () {
+       if (geolocationPosition)
+         setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
+     },
+     [geolocationPosition]
+   );
   return (
     <div
       className={styles.mapContainer}
@@ -35,6 +48,11 @@ function Map() {
         navigate("form");
       }}
     >
+      {!geolocationPosition && (
+        <Button type="position" onClick={getPosition}>
+          {isLoadingPosition ? "Loading..." : "Use your position"}
+        </Button>
+      )}
       <MapContainer
         center={mapPosition}
         zoom={6}
