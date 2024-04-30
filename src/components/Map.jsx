@@ -11,6 +11,9 @@ import {
 } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCities } from "../contexts/CitiesContext";
+import { useGeolocation } from "../hooks/useGeolocation";
+import { useUrlPosition } from "../hooks/useUrlPosition";
+import Button from "./Button";
 
 function Map() {
   const [searchParam, setSearchParams] = useSearchParams();
