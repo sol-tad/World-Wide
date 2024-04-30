@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import styles from "./Map.module.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useCities } from "../contexts/CitiesContext";
 
 function Map() {
   const navigate = useNavigate(); //navigate where ever we want
   const [searchParam, setSearchParams] = useSearchParams();
   const [mapPosition, setMapPosition] = useState([40, 0]);
+  const{cities}=useCities();
   const lat = searchParam.get("lat");
   const lng = searchParam.get("lng");
   return (
@@ -27,11 +29,16 @@ function Map() {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
 
-        <Marker position={mapPosition}>
-          <Popup>
-            Aprrety css3 popup
-          </Popup>
-        </Marker>
+        {cities.map((city) => (
+          <Marker
+            position={[city.position.lat, city.position.lng]}
+            key={city.id}
+          >
+            <Popup>
+              <span>{city.emoji}</span> <span>{city.cityName}</span>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );
